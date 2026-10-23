@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectFlow | Project Management</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">P</div>
+            <span>ProjectFlow</span>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav>
+            <button class="nav-item active" data-view="dashboard">▦ Dashboard</button>
+            <button class="nav-item" data-view="projects">▣ Projects</button>
+            <button class="nav-item" data-view="tasks">☑ Tasks</button>
+            <button class="nav-item" data-view="milestones">◷ Milestones</button>
+            <button class="nav-item" data-view="team">♙ Team</button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="avatar">PM</div>
+            <div>
+                <strong>Project Workspace</strong>
+                <small>Management Portal</small>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">WORKSPACE / OVERVIEW</p>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <button class="primary-btn" id="global-add">+ Create New</button>
+        </header>
+
+        <div id="notice" class="notice" hidden></div>
+
+        <section id="dashboard-view" class="view">
+            <div class="welcome-banner">
+                <div>
+                    <p class="eyebrow light">YOUR WORKSPACE AT A GLANCE</p>
+                    <h2>Plan better. Work smarter.</h2>
+                    <p>Track your projects, manage tasks, and stay on top of deadlines.</p>
+                </div>
+                <div class="banner-mark">P.</div>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon purple">▣</span>
+                    <p>Total Projects</p>
+                    <strong id="total-projects">0</strong>
+                    <small>Projects in workspace</small>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon blue">☑</span>
+                    <p>Total Tasks</p>
+                    <strong id="total-tasks">0</strong>
+                    <small><span id="completed-tasks">0</span> completed</small>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon orange">◷</span>
+                    <p>Pending Tasks</p>
+                    <strong id="pending-tasks">0</strong>
+                    <small>Tasks to work on</small>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon green">✓</span>
+                    <p>Milestones</p>
+                    <strong id="total-milestones">0</strong>
+                    <small>Project checkpoints</small>
+                </article>
+            </div>
+
+            <div class="dashboard-grid">
+                <section class="panel progress-panel">
+                    <div class="section-header">
+                        <div>
+                            <h2>Overall Progress</h2>
+                            <p>Completed tasks across all projects</p>
+                        </div>
+                        <strong id="progress-label">0%</strong>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+                    <p class="progress-caption"><span id="completed-summary">0 of 0 tasks completed</span></p>
+                </section>
+
+                <section class="panel">
+                    <div class="section-header">
+                        <div>
+                            <h2>Quick Actions</h2>
+                            <p>Keep your workspace moving</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-card" data-create="project"><span>＋</span><div><strong>New Project</strong><small>Start a project</small></div></button>
+                        <button class="action-card" data-create="task"><span>☑</span><div><strong>New Task</strong><small>Assign an activity</small></div></button>
+                        <button class="action-card" data-create="milestone"><span>◷</span><div><strong>New Milestone</strong><small>Set a checkpoint</small></div></button>
+                    </div>
+                </section>
+            </div>
+
+            <section class="panel">
+                <div class="section-header">
+                    <div>
+                        <h2>Projects Overview</h2>
+                        <p>Your current projects and their status</p>
+                    </div>
+                    <button class="text-btn" data-view="projects">View all →</button>
+                </div>
+                <div id="projects-list" class="data-list">
+                    <p class="empty-state">Loading projects...</p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="section-header">
+                    <div>
+                        <h2>Upcoming Milestones</h2>
+                        <p>Key checkpoints across your projects</p>
+                    </div>
+                    <button class="text-btn" data-view="milestones">View all →</button>
+                </div>
+                <div id="milestones-preview-list" class="data-list">
+                    <p class="empty-state">Loading milestones...</p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="section-header">
+                    <div>
+                        <h2>Recent Tasks</h2>
+                        <p>Tasks across your workspace</p>
+                    </div>
+                    <button class="text-btn" data-view="tasks">View all →</button>
+                </div>
+                <div id="tasks-list" class="data-list">
+                    <p class="empty-state">Loading tasks...</p>
+                </div>
+            </section>
+        </section>
+
+        <section id="projects-view" class="view" hidden>
+            <section class="panel">
+                <div class="section-header">
+                    <div><h2>All Projects</h2><p>Manage your project portfolio</p></div>
+                    <button class="primary-btn" data-create="project">+ Add Project</button>
+                </div>
+                <div id="all-projects-list" class="data-list"></div>
+            </section>
+        </section>
+
+        <section id="tasks-view" class="view" hidden>
+            <section class="panel">
+                <div class="section-header">
+                    <div><h2>All Tasks</h2><p>Manage assignments and priorities</p></div>
+                    <button class="primary-btn" data-create="task">+ Add Task</button>
+                </div>
+                <div id="all-tasks-list" class="data-list"></div>
+            </section>
+        </section>
+
+        <section id="milestones-view" class="view" hidden>
+            <section class="panel">
+                <div class="section-header">
+                    <div><h2>Milestones</h2><p>Track important project checkpoints</p></div>
+                    <button class="primary-btn" data-create="milestone">+ Add Milestone</button>
+                </div>
+                <div id="milestones-list" class="data-list"></div>
+            </section>
+        </section>
+
+        <section id="team-view" class="view" hidden>
+            <section class="panel">
+                <div class="section-header">
+                    <div><h2>Team Members</h2><p>Workspace users and assignments</p></div>
+                    <button class="primary-btn" data-create="user">+ Add Member</button>
+                </div>
+                <div id="users-list" class="data-list"></div>
+            </section>
+        </section>
+
+        <dialog id="record-dialog" class="record-dialog">
+            <div class="dialog-header">
+                <div><p class="eyebrow">WORKSPACE MANAGEMENT</p><h2 id="dialog-title">Create Record</h2></div>
+                <button type="button" class="close-btn" id="close-dialog" aria-label="Close">×</button>
+            </div>
+            <form id="record-form">
+                <div id="form-fields" class="form-fields"></div>
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn" id="cancel-dialog">Cancel</button>
+                    <button type="submit" class="primary-btn" id="save-record">Save Record</button>
+                </div>
+            </form>
+        </dialog>
+
+        <footer class="footer">ProjectFlow · Project Management &amp; Workflow System</footer>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
